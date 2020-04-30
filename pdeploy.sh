@@ -13,13 +13,13 @@ git push
 git push origin $BRANCH
 
 SSH_KEY_PATH="$HOME/dev/ssh/crisisfinal"
-SERVER="crisislogger@35.188.243.221"
+SERVER="crisislogger@35.245.250.150"
 GIT_REPO="git@gitlab.com:asaadriaz/cl-gallery-back.git"
-BASE_DIR="/home/admin/web/back.crisislogger.care/"
+BASE_DIR="/home/crisislogger/web/back.crisislogger.org/"
 DEST_FOLDER=$BASE_DIR"public_html"
 STORAGE_FOLDER=$BASE_DIR"storage"
-USER="admin"
-USER_GROUPE="admin"
+USER="crisislogger"
+USER_GROUPE="www-data"
 
 PARAMS=" \
  BRANCH=\"$BRANCH\" \
@@ -77,7 +77,7 @@ ssh -i $SSH_KEY_PATH $SERVER $PARAMS 'bash -i' <<-'ENDSSH'
 	# --no-dev  Disables installation of require-dev packages.
 	# --prefer-dist  Forces installation from package dist even for dev versions.# update database
 
-	cp .env.staging .env
+	cp .env.prod .env
 	# php artisan key:generate
 	# php artisan jwt:secret
 
@@ -114,7 +114,7 @@ ssh -i $SSH_KEY_PATH $SERVER $PARAMS 'bash -i' <<-'ENDSSH'
 	php artisan view:clear
 	php artisan optimize
 
-  sudo cd $BASE_DIR
+  cd $BASE_DIR
 
   sudo rm -rf $DEST_FOLDER
   sudo ln -sf $NEW_BUILD $DEST_FOLDER
